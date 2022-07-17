@@ -10,10 +10,6 @@ export class App extends Component {
     filter: '',
   };
 
-  handleChangeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
-
   handleSubmit = ({ name, number }) => {
     const { contacts } = this.state;
     const addedName = contacts.find(item => item.name === name);
@@ -63,16 +59,6 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(
-    //   'componentDidUpdate',
-    //   'prevProps',
-    //   prevProps,
-    //   'prevState',
-    //   prevState.contacts,
-    //   'this.state',
-    //   this.state.contacts
-    // );
-
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
