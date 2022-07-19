@@ -64,22 +64,27 @@ export class App extends Component {
     }
   }
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount');
-  }
+  getFilteredContacts = () => {
+    const { contacts, filter } = this.state;
+
+    if (!filter) {
+      return contacts;
+    } else {
+      // console.log('filter filter');
+      const normalized = filter.toLowerCase();
+      return contacts.filter(item =>
+        item.name.toLowerCase().includes(normalized)
+      );
+    }
+  };
 
   render() {
-    const { contacts, filter } = this.state;
+    const { filter } = this.state;
     const { handleSubmit, handleDelete, handleFilter } = this;
 
-    const normalized = filter.toLowerCase();
-    const filteredContacts = contacts.filter(item =>
-      item.name.toLowerCase().includes(normalized)
-    );
-    // console.log('contacts', contacts);
-    // console.log('filteredContacts', filteredContacts);
+    const filteredContacts = this.getFilteredContacts();
 
-    // const localContacts = localStorage.getItem('contacts');
+    // console.log('filteredContacts', filteredContacts);
 
     return (
       <div
